@@ -11,6 +11,12 @@
     "test": "node test.js",
     "security:check": "node scripts/security-guard.js"
   },
-  "keywords": ["ponte", "cli", "emulator", "api", "cloudflare"],
+  "keywords": [
+    "ponte",
+    "cli",
+    "emulator",
+    "api",
+    "cloudflare"
+  ],
   "license": "MIT"
 }
