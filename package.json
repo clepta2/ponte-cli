@@ -1,0 +1,16 @@
+{
+  "name": "@ponte/cli",
+  "version": "1.0.0",
+  "description": "CLI Oficial e Emulador Localhost Offline para as 28 APIs do Ecossistema Ponte Anycast.",
+  "type": "module",
+  "bin": {
+    "ponte": "./bin/ponte.js"
+  },
+  "main": "./bin/ponte.js",
+  "scripts": {
+    "test": "node test.js",
+    "security:check": "node scripts/security-guard.js"
+  },
+  "keywords": ["ponte", "cli", "emulator", "api", "cloudflare"],
+  "license": "MIT"
+}
