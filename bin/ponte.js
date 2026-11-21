@@ -13,7 +13,22 @@ import { FipePro } from '../../fipe-pro/fipe-pro.js';
 import { PdfPro } from '../../pdf-pro/pdf-pro.js';
 import { OcrPro } from '../../ocr-pro/ocr-pro.js';
 import { ClimaPro } from '../../clima-pro/clima-pro.js';
+import { buscarMunicipio } from '../../clima-pro/clima-engine.js';
 
+
+function consultarClimaOffline(termo = 'São Paulo') {
+  const res = buscarMunicipio(termo);
+  if (res?.ok && res.municipio) {
+    return {
+      ok: true,
+      cidade: res.municipio.nome,
+      uf: res.municipio.uf,
+      ibge: res.municipio.ibge,
+      fonte: 'ClimaPro/IBGE Offline'
+    };
+  }
+  return res;
+}
 export function executarComandoCli(args = []) {
   const cmd = (args[0] || 'help').toLowerCase();
   const param = args[1] || '';
@@ -86,7 +101,7 @@ export function executarComandoCli(args = []) {
       return OcrPro.validarCnhSenatran(param || '10852385850');
 
     case 'clima':
-      return ClimaPro.consultarClimaCidade(param || 'São Paulo');
+      return consultarClimaOffline(param || 'São Paulo');
 
     case 'status':
       return {
@@ -138,7 +153,7 @@ export function iniciarServidorEmulador(porta = 8787) {
     } else if (p.includes('fipe')) {
       res.end(JSON.stringify(FipePro.consultarPorCodigoFipe('005340-6'), null, 2));
     } else if (p.includes('clima')) {
-      res.end(JSON.stringify(ClimaPro.consultarClimaCidade('São Paulo'), null, 2));
+      res.end(JSON.stringify(consultarClimaOffline('São Paulo'), null, 2));
     } else {
       res.end(JSON.stringify({
         ok: true,
